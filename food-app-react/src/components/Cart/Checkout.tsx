@@ -2,6 +2,8 @@ import { FormEvent, useRef, useState } from 'react';
 import './Checkout.css';
 import './Cart.css';
 import { IUserData } from './Cart';
+import { formatMessage } from '@formatjs/intl';
+import { useFormatMessage } from '../../hooks/useFormatMessage';
 
 interface CheckoutProps {
     onCancel: ()=>void;
@@ -16,6 +18,7 @@ function isFourChars(value: string){
 }
 
 export default function Checkout (props: CheckoutProps) {
+    const formatMessage = useFormatMessage();
     const [formInputsValid, setFormInputsValid] = useState({
         name: true,
         street: true,
@@ -65,7 +68,7 @@ export default function Checkout (props: CheckoutProps) {
         });
 
     }
-
+//TODO change out all application text with the formatMessage hook
     return(
         <form onSubmit={confirmHandler}>
             <div className={`control ${formInputsValid.name ? '' : 'invalid'}`}>
@@ -89,8 +92,8 @@ export default function Checkout (props: CheckoutProps) {
                 {!formInputsValid.city && <p>Please enter a city!</p>}
             </div>
             <div className="actions">
-                <button className="button--alt" type="button" onClick={props.onCancel}>Cancel</button>
-                <button className="button">Confirm</button>
+                <button className="button--alt" type="button" onClick={props.onCancel}>{formatMessage('Cancel')}</button>
+                <button className="button">{formatMessage('Confirm')}</button>
             </div>
         </form>
     );

@@ -3,14 +3,15 @@ import "./HeaderCartButton.css";
 import CartIcon from "./CartIcon";
 import CartContext from "../../store/CartContext";
 import { FormattedMessage } from "react-intl";
-// import { useFormatMessage } from "../../hooks/useFormatMessage";
+import { useFormatMessage } from "../../hooks/useFormatMessage";
+import { Button } from "@mui/material";
 
 interface HeaderCartButtonProps {
   onShowCart: () => void;
 }
 
 export default function HeaderCartButton(props: HeaderCartButtonProps) {
-//   const formatMessage = useFormatMessage();
+  const formatMessage = useFormatMessage();
 
   const [btnIsHighlighted, setBtnIsHighlighted] = useState(false);
 
@@ -42,19 +43,22 @@ export default function HeaderCartButton(props: HeaderCartButtonProps) {
   }, [items]);
 
   return (
-    <button className={btnClasses} onClick={props.onShowCart}>
+    <Button variant="contained"  className={btnClasses} onClick={props.onShowCart}>
       <span className="icon">
         {" "}
         <CartIcon />{" "}
       </span>
 
       <span>
-          {/* Basic Implementaion of Formatting Message*/}
-        <FormattedMessage id="YourCart" defaultMessage="Your Cart" />
+        {/* Basic Implementaion of Formatting Message*/}
+         <FormattedMessage id="YourCart" defaultMessage="Your Cart" /> 
       </span>
-      {/* formatting message using a hook */}
-      {/* <span>{formatMessage('YourCart')}</span> */}
-      <span className="badge">{numberOfCartItems}</span>
-    </button>
+      {/* formatting message using a custom hook */}
+      <span>{formatMessage("YourCart")}</span>
+
+      {/* formatting message using the intl.FormattedMessage hook */}
+      {/* <span>{FormattedMessage({id:"YourCart"})}</span> */}
+       <span className="badge">{numberOfCartItems}</span>
+    </Button>
   );
 }

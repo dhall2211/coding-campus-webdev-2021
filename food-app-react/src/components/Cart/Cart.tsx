@@ -1,4 +1,5 @@
 import { Fragment, useContext, useState } from 'react';
+import { useFormatMessage } from '../../hooks/useFormatMessage';
 import CartContext, { CartItem } from '../../store/CartContext';
 import Modal from '../UI/Modal';
 import './Cart.css';
@@ -17,6 +18,7 @@ interface CartProps {
 }
 
 export default function Cart(props: CartProps){
+  const formatMessage = useFormatMessage()
   const [isCheckout, setIsCheckout] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [didSubmit, setDidSubmit] = useState(false);
@@ -73,16 +75,16 @@ export default function Cart(props: CartProps){
     const cartModalContent = <Fragment>
             <div className='cart-items'>{cartItems}</div>
             <div className='total'>
-                <span>Summe</span>
+                <span>{formatMessage('Total')}</span>
                 <span>{`€ ${cartCtx.totalPrice.toFixed(2)}`}</span>
             </div>
             { isCheckout && <Checkout onConfirm={submitOrderhandler} onCancel={props.onHideCart}/> }
             {!isCheckout && modalActions}
     </Fragment>
 
-    const isSubmittingModalContent = <p>Sending order data...</p>;
+    const isSubmittingModalContent = <p>{formatMessage('SendingOrderData')}</p>;
 
-    const didSubmitModalContent = <p>Your order was sucessfull submitted!</p>;
+    const didSubmitModalContent = <p>{formatMessage('OrderSuccessfullySubmitted')}</p>;
 
     return(
         <Modal onHideCart={props.onHideCart}>

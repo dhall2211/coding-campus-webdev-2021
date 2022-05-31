@@ -17,8 +17,9 @@ export const useFormatMessage = () => {
 
     // overload the function to support the various implementation
 
-    function formatMessage(id: string, value?: Record<string, PrimitiveType | FormatXMLElementFn<string, string>>): string;
-    function formatMessage(id: string, values?: Record<string, PrimitiveType | ReactNode>): ReactNode;
+     function formatMessage(id: string, value?: Record<string, PrimitiveType | FormatXMLElementFn<string, string>>): string; 
+
+     function formatMessage(id: string, values?: Record<string, PrimitiveType | ReactNode>): ReactNode;
 
     function formatMessage(id: string, value: any): any { 
         return intl.formatMessage({id}, value)

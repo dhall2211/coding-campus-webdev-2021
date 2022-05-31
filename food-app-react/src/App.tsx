@@ -5,7 +5,7 @@ import Cart from "./components/Cart/Cart";
 import CartProvider from "./store/CartProvider";
 import { IntlProvider } from "react-intl";
 import { DE, EN } from "./localization";
-
+import FoodTheme from "./theme/foodTheme";
 
 export interface Meal {
   id: string;
@@ -38,11 +38,13 @@ export default function App() {
   return (
     <IntlProvider messages={lang} locale="en" defaultLocale="en">
       <CartProvider>
-        {showCart && <Cart onHideCart={hideCartHandler} />}
-        <Header onShowCart={showCartHandler} />
-        <main>
-          <Meals />
-        </main>
+         <FoodTheme>
+          {showCart && <Cart onHideCart={hideCartHandler} />}
+          <Header onShowCart={showCartHandler} />
+          <main>
+            <Meals />
+          </main>
+        </FoodTheme>
       </CartProvider>
     </IntlProvider>
   );
